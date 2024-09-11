@@ -90,7 +90,6 @@ public class Player : MonoBehaviour
         if (horizontal == 0 && vertical == 0)
         {
             spaceshipRigidbody.velocity *= (1 - decelerationFactor * Time.deltaTime);
-            Debug.Log("Slowing down");
         }
     }
 
