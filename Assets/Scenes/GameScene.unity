@@ -488,7 +488,7 @@ GameObject:
   - component: {fileID: 801990733}
   - component: {fileID: 801990737}
   m_Layer: 0
-  m_Name: Enemy_Spaceship
+  m_Name: Enemy Spacecraft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -637,11 +637,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyRigidbody: {fileID: 801990734}
   speedChangeRate: 0.01
+  minMoveTime: 0.73
+  maxMoveTime: 4.49
+  minIdleTime: 1.84
+  maxIdleTime: 5
   projectile: {fileID: 0}
-  minAttackInterval: 1
-  maxAttackInterval: 3
+  minAtkInterval: 0
+  maxAtkInterval: 0
   boundary: {fileID: 96124796}
-  boundaryMargin: 0.5
+  boundaryMargin: 0.2
 --- !u!1 &1095930406
 GameObject:
   m_ObjectHideFlags: 0
