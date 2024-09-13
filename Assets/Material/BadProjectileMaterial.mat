@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GoodBlasterMaterial
+  m_Name: BadProjectileMaterial
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -79,6 +79,6 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.049439307, g: 0.9528302, b: 0.16182277, a: 1}
-    - _EmissionColor: {r: 0.004024717, g: 0.89626956, b: 0.022173883, a: 1}
+    - _Color: {r: 0.9528302, g: 0.06741722, b: 0.06741722, a: 1}
+    - _EmissionColor: {r: 0.89626956, g: 0.0056053917, b: 0.0056053917, a: 1}
   m_BuildTextureStacks: []

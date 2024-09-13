@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: -5628119179767299334}
   - component: {fileID: -8434443133252094606}
   m_Layer: 0
-  m_Name: PlayerBlasters
+  m_Name: PlayerProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -181,7 +181,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &-8434443133252094606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,7 +197,7 @@ MonoBehaviour:
   rigidBody: {fileID: -5628119179767299334}
   leftBlasterCollider: {fileID: 4727359344043249003}
   rightBlasterCollider: {fileID: 283955301197316721}
-  laserAcceleration: 1.5
+  acceleration: 0.86
 --- !u!1 &8130600678662068668
 GameObject:
   m_ObjectHideFlags: 0

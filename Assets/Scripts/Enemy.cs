@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [Header("Game Object Reference")]
+    public GameObject player;
+    
     [Header("Rigidbody Reference")]
     public Rigidbody2D enemyRigidbody;
 
@@ -20,12 +23,18 @@ public class Enemy : MonoBehaviour
     private float moveTimer, idleTimer;
     [Range(0f, 5f)]
     public float minMoveTime, maxMoveTime, minIdleTime, maxIdleTime;
-
-    [Header("Attack Behavior")]
-    public GameObject projectile;
     private float attackTimer;
     [Range(0f, 5f)]
+    public float minNoAttackTime, maxNoAttackTime, minNormalAttackTime, maxNormalAttackTime;
+    public bool inCooldown;
+
+    [Header("Attack Behavior")]
+    public GameObject projectilePrefab;
+    [Range(0f, 5f)]
     public float minAtkInterval, maxAtkInterval;
+    [Range(0,2)]
+    public float fireRate;
+    private float nextFireTime;
     
 
     [Header("Boundary")]
@@ -34,7 +43,9 @@ public class Enemy : MonoBehaviour
     private Bounds boundaryBounds;
 
     private enum MovementState {Idle, Moving}
-    private MovementState currentState = MovementState.Idle;
+    private enum AttackState {Cooldown, NormalAttack}
+    private MovementState currentMovementState = MovementState.Idle;
+    private AttackState currentAttackState = AttackState.Cooldown;
 
     void Start()
     {
@@ -46,13 +57,16 @@ public class Enemy : MonoBehaviour
         currentSpeed = targetSpeed;
 
         // Start in the Idle state
-        SetNewState(currentState);
+        SetNewMovementState(currentMovementState);
+
+        attackTimer = 0.5f;
+        inCooldown = true;
     }
 
     void Update()
     {
-        // Process the current state (Idle or Moving)
-        switch (currentState)
+        // Process the current movement state (Idle or Moving)
+        switch (currentMovementState)
         {
             case MovementState.Idle:
                 HandleIdleState();
@@ -61,6 +75,8 @@ public class Enemy : MonoBehaviour
                 HandleMovingState();
                 break;
         }
+
+        HandleAttackBehavior();
     }
 
     private void HandleIdleState()
@@ -75,7 +91,7 @@ public class Enemy : MonoBehaviour
         if (idleTimer <= 0)
         {
             ChooseNewPosition();
-            SetNewState(currentState);
+            SetNewMovementState(currentMovementState);
         }
     }
 
@@ -94,7 +110,37 @@ public class Enemy : MonoBehaviour
         if (moveTimer <= 0 || destinationReached)
         {
             destinationReached = false;
-            SetNewState(currentState);
+            SetNewMovementState(currentMovementState);
+        }
+    }
+
+    private void HandleAttackBehavior()
+    {
+        attackTimer -= Time.deltaTime;
+
+        if (inCooldown)
+        {
+            if (attackTimer <= 0)
+            {
+                inCooldown = false;
+
+                attackTimer = Random.Range(minNormalAttackTime, maxNormalAttackTime);
+            }
+        }
+        else
+        {
+            if (attackTimer > 0)
+            {
+                if (Time.time >= nextFireTime)
+                {
+                    NormalAttack();
+                }
+            }
+            else
+            {
+                inCooldown = true;
+                attackTimer = Random.Range(minNoAttackTime, maxNoAttackTime);
+            }
         }
     }
 
@@ -116,9 +162,22 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void Attack()
+    void NormalAttack()
     {
-        // do something
+        // obtain the direction of the attack
+        Vector2 direction = (player.transform.position - transform.position).normalized;
+
+        // create the projectile prefab
+        GameObject projectile = Instantiate(projectilePrefab, new Vector2(transform.position.x, transform.position.y - 0.0105f), Quaternion.identity);
+
+        // get the EnemyBlaster script component from the instantiated projectile and set the direction
+        EnemyProjectile script = projectile.GetComponent<EnemyProjectile>();
+        script.SetDirection(direction);
+        
+        Debug.Log("Shoot");
+
+        // compute for the next fire time
+        nextFireTime = Time.time + fireRate;
     }
 
     void ChooseNewPosition()
@@ -137,13 +196,13 @@ public class Enemy : MonoBehaviour
         targetSpeed = Random.Range(0.5f, 1.2f);
     }
 
-    void SetNewState(MovementState newState)
+    void SetNewMovementState(MovementState newState)
     {
         // Determine the new state (Idle or Moving) based on the provided newState
-        currentState = newState == MovementState.Moving ? MovementState.Idle : MovementState.Moving;
+        currentMovementState = newState == MovementState.Moving ? MovementState.Idle : MovementState.Moving;
 
         // Reset the timer for the new state with a random duration.
-        if (currentState == MovementState.Moving)
+        if (currentMovementState == MovementState.Moving)
         {
             moveTimer = Random.Range(minMoveTime, maxMoveTime);
             Debug.Log("Switched to moving state");
@@ -153,5 +212,11 @@ public class Enemy : MonoBehaviour
             idleTimer = Random.Range(minIdleTime, maxIdleTime);
             Debug.Log("Switched to idle state");
         }
+    }
+
+    void SetNewAttackState(AttackState newState)
+    {
+        // Determine the new state (No Attack or Normal Attack) based on the provided newState
+        // current
     }
 }
