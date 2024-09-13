@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    [Header("Game Object Reference")]
-    public GameObject player;
+    private GameObject player;
 
     [Header("Attack State")]
     private float timer;
@@ -24,6 +23,7 @@ public class EnemyAttack : MonoBehaviour
     void Start()
     {
         // Set the initial values
+        player = GameObject.FindGameObjectWithTag("Player");
         SetAttackState(AttackState.Cooldown);
     }
 
@@ -77,19 +77,19 @@ public class EnemyAttack : MonoBehaviour
 
     void Attack()
     {
-        // obtain the direction of the attack
+        // Obtain the direction of the attack
         Vector2 direction = (player.transform.position - transform.position).normalized;
 
-        // create the projectile prefab
+        // Create the projectile prefab
         GameObject projectile = Instantiate(projectilePrefab, new Vector2(transform.position.x, transform.position.y - 0.0105f), Quaternion.identity);
 
-        // get the EnemyBlaster script component from the instantiated projectile and set the direction
+        // Get the EnemyBlaster script component from the instantiated projectile and set the direction
         EnemyProjectile script = projectile.GetComponent<EnemyProjectile>();
         script.SetDirection(direction);
         
         Debug.Log("Shoot");
 
-        // compute for the next fire time
+        // Compute for the next fire time
         nextFireTime = Time.time + fireRate;
     }
 

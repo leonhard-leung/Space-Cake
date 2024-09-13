@@ -4,30 +4,39 @@ using UnityEngine;
 
 public class PlayerProjectile : MonoBehaviour
 {
-    [Header("Rigidbody")]
-    public Rigidbody2D rigidBody;
-
-    [Header("Colliders")]
-    public CapsuleCollider2D leftBlasterCollider;
-    public CapsuleCollider2D rightBlasterCollider;
+    private Rigidbody2D rigidBody;
+    private CapsuleCollider2D projectileCollider;
 
     [Header("Projectile")]
-    [Range(0,5)]
     public float acceleration;
 
-    void Start()
-    {
-
-    }
-    
     void Update()
     {
+
+        rigidBody = GetComponent<Rigidbody2D>();
+        projectileCollider = GetComponent<CapsuleCollider2D>();
         rigidBody.velocity = new Vector2(0, acceleration);
     }
 
     void LateUpdate()
     {
-        if (transform.position.y > 1) {
+        if (transform.position.y > 1)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
+            enemyHealth.TakeDamage();
+            Destroy(gameObject);
+        }
+
+        if (other.CompareTag("Enemy Projectile"))
+        {
             Destroy(gameObject);
         }
     }

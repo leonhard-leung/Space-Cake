@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    // Reference
     private Rigidbody2D rigidBody;
 
-    // Properties
     [Header("Spacecraft")]
     private Vector2 targetPosition;
     private float currentSpeed, targetSpeed;

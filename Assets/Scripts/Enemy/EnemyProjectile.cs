@@ -1,0 +1,43 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyProjectile : MonoBehaviour
+{
+    private Rigidbody2D rigidBody;
+    private CircleCollider2D projectileCollider;
+    private Vector2 direction;
+
+    void Start()
+    {
+        // Set the initial values
+        rigidBody = GetComponent<Rigidbody2D>();
+        projectileCollider = GetComponent<CircleCollider2D>();
+    }
+
+    void Update()
+    {
+        // Update the direction of the projectile
+        rigidBody.velocity = direction;
+
+        // Destroy projectile if it goes off the screen
+        if (transform.position.y < -1)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void SetDirection(Vector2 targetDirection)
+    {
+        direction = targetDirection.normalized;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        // Destroy the projectile if it comes contact with the player's projectile
+        if (other.CompareTag("Player Projectile"))
+        {
+            Destroy(gameObject);
+        }
+    }
+}
