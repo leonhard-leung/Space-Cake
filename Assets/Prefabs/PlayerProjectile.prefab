@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 1176750252451007782}
   - component: {fileID: 3881785881315833541}
   - component: {fileID: 4727359344043249003}
+  - component: {fileID: 4045656215126829581}
+  - component: {fileID: 3170630330972221054}
   m_Layer: 0
-  m_Name: Left Blaster
-  m_TagString: Untagged
+  m_Name: Left Projectile
+  m_TagString: Player Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6470481265525499322}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.1247, y: 0.1195, z: -2.5}
+  m_LocalPosition: {x: -0.1247, y: 0.1195, z: 0}
   m_LocalScale: {x: 0.0136341555, y: 0.03637713, z: 0.40000004}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -114,12 +116,52 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.99999994, y: 2.0000002}
   m_Direction: 0
+--- !u!50 &4045656215126829581
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6470481265525499322}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &3170630330972221054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6470481265525499322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f23af999aba2e0e45a91eabc556c32e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  acceleration: 0.86
 --- !u!1 &8070626217301717564
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,8 +171,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3903893413317173442}
-  - component: {fileID: -5628119179767299334}
-  - component: {fileID: -8434443133252094606}
+  - component: {fileID: 6735210341819142739}
   m_Layer: 0
   m_Name: PlayerProjectile
   m_TagString: Untagged
@@ -155,34 +196,7 @@ Transform:
   - {fileID: 996320934370683197}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &-5628119179767299334
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8070626217301717564}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
---- !u!114 &-8434443133252094606
+--- !u!114 &6735210341819142739
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,13 +205,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8070626217301717564}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f23af999aba2e0e45a91eabc556c32e3, type: 3}
+  m_Script: {fileID: 11500000, guid: db71f722c5142774bb7a1eec3969d412, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidBody: {fileID: -5628119179767299334}
-  leftBlasterCollider: {fileID: 4727359344043249003}
-  rightBlasterCollider: {fileID: 283955301197316721}
-  acceleration: 0.86
 --- !u!1 &8130600678662068668
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,9 +219,11 @@ GameObject:
   - component: {fileID: 996320934370683197}
   - component: {fileID: 3668809392872287084}
   - component: {fileID: 283955301197316721}
+  - component: {fileID: 6189838517806580563}
+  - component: {fileID: 1827176964964675513}
   m_Layer: 0
-  m_Name: Right Blaster
-  m_TagString: Untagged
+  m_Name: Right Projectile
+  m_TagString: Player Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -225,7 +237,7 @@ Transform:
   m_GameObject: {fileID: 8130600678662068668}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.1247, y: 0.1195, z: -2.5}
+  m_LocalPosition: {x: 0.1247, y: 0.1195, z: 0}
   m_LocalScale: {x: 0.0136341555, y: 0.03637713, z: 0.40000004}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -312,9 +324,49 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.99999994, y: 2.0000002}
   m_Direction: 0
+--- !u!50 &6189838517806580563
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8130600678662068668}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &1827176964964675513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8130600678662068668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f23af999aba2e0e45a91eabc556c32e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  acceleration: 0.86

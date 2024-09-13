@@ -99,7 +99,7 @@ public class Player : MonoBehaviour
     private void Shoot()
     {
         // create the blaster
-        Instantiate(blastersComponent, new Vector2(transform.position.x, transform.position.y + 0.0105f), Quaternion.identity);
+        Instantiate(blastersComponent, new Vector3(transform.position.x, transform.position.y + 0.0105f, transform.position.z), Quaternion.identity);
         Debug.Log("Shoot");
 
         // compute for the next fire time
