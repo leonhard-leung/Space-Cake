@@ -52,10 +52,10 @@ For a detailed breakdown of the game's design, mechanics, and development proces
 #### Phase 6: Audio Asset Creation
 - **Objective:** Develop or source audio assets for the game.
 
-#### Phase 7: Cutscene Design & Implementation**
+#### Phase 7: Cutscene Design & Implementation
 - **Objective:** Craft and integrate in-game cutscenes to convey the story and enhance the player's immersion in the game world.
 
-#### Phase 8: Game Logic & Feature Expansion**
+#### Phase 8: Game Logic & Feature Expansion
 - **Objective:** Add advanced features and mechanics to enrich gameplay.
 
 #### Phase 9: Testing, Polish, & Optimization
