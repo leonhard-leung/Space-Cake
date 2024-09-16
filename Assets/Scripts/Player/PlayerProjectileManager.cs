@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyProjectileManager : MonoBehaviour
+public class PlayerProjectileManager : MonoBehaviour
 {
     private GameObject leftProjectile;
     private GameObject rightProjectile;

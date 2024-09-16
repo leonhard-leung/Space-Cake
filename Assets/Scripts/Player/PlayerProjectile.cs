@@ -7,19 +7,20 @@ public class PlayerProjectile : MonoBehaviour
     private Rigidbody2D rigidBody;
     private CapsuleCollider2D projectileCollider;
 
-    [Header("Projectile")]
+    public float damageValue = 28f;
     public float acceleration;
+
+    void Start()
+    {
+        // Instantiate the 
+        rigidBody = GetComponent<Rigidbody2D>();
+        projectileCollider = GetComponent<CapsuleCollider2D>();
+    }
 
     void Update()
     {
-
-        rigidBody = GetComponent<Rigidbody2D>();
-        projectileCollider = GetComponent<CapsuleCollider2D>();
         rigidBody.velocity = new Vector2(0, acceleration);
-    }
 
-    void LateUpdate()
-    {
         if (transform.position.y > 1)
         {
             Destroy(gameObject);
@@ -31,7 +32,7 @@ public class PlayerProjectile : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
-            enemyHealth.TakeDamage();
+            enemyHealth.TakeDamage(damageValue);
             Destroy(gameObject);
         }
 

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
 {
+    public float damageValue = 40f;
+
     private Rigidbody2D rigidBody;
     private CircleCollider2D projectileCollider;
     private Vector2 direction;
@@ -34,10 +36,20 @@ public class EnemyProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // Injure the player if the projectile hits them
+        if (other.CompareTag("Player"))
+        {
+            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+            playerHealth.TakeDamage(damageValue);
+            Destroy(gameObject);
+        }
+
         // Destroy the projectile if it comes contact with the player's projectile
         if (other.CompareTag("Player Projectile"))
         {
             Destroy(gameObject);
         }
+
+        
     }
 }
