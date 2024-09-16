@@ -129,12 +129,10 @@ public class EnemyMovement : MonoBehaviour
         if (currentState == MovementState.Moving)
         {
             timer = Random.Range(minMoveTime, maxMoveTime);
-            Debug.Log("Switched to moving state");
         }
         else
         {
             timer = Random.Range(minIdleTime, maxIdleTime);
-            Debug.Log("Switched to idle state");
         }
     }
 }

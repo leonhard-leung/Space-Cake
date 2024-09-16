@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
     private float maxHealth;
-    
+
     void Start()
     {
-        maxHealth = 100f;
+        maxHealth = 500f;
     }
 
     public void TakeDamage(float damageValue)
@@ -18,8 +18,7 @@ public class EnemyHealth : MonoBehaviour
 
         if (maxHealth <= 0)
         {
-            Destroy(gameObject);
-            Debug.Log("Enemy Spacecraft Destroyed");
+            Debug.Log("Player Defeated");
         }
     }
 }
