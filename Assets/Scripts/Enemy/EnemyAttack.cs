@@ -1,52 +1,55 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    private GameObject player;
-
     [Header("Attack State")]
+    [SerializeField, Range(0, 5f)] private float minCooldownInterval;
+    [SerializeField, Range(0, 5f)] private float maxCooldownInterval;
+    [SerializeField, Range(0, 5f)] private float minAtkInterval;
+    [SerializeField, Range(0, 5f)] private float maxAtkInterval;
     private float timer;
-    [Range(0.0f, 5.0f)]
-    public float minCooldownInterval, maxCooldownInterval, minAtkInterval, maxAtkInterval;
-    
+
+    [Space]
+
     [Header("Attack Behavior")]
-    public GameObject projectilePrefab;
-    [Range(0.0f, 2.0f)]
-    public float fireRate;
+    [SerializeField, Range(0, 2f)] private float fireRate;
     private float nextFireTime;
 
+    private GameObject player;
+    private GameObject projectilePrefab;
+
     private enum AttackState {Cooldown, Attack}
-    private AttackState currentState;
+    private AttackState currentState = AttackState.Cooldown;
+
+    private bool inBoundary = false;
 
     void Start()
     {
-        // Set the initial values
         player = GameObject.FindGameObjectWithTag("Player");
-        SetAttackState(AttackState.Cooldown);
+        projectilePrefab = Resources.Load<GameObject>("Prefabs/Enemy Projectile");
     }
 
     void Update()
     {
         // Process the current attack state (Cooldown or Attack)
-        switch (currentState)
+        if (inBoundary)
         {
-            case AttackState.Cooldown:
-                HandleCooldownState();
-                break;
-            case AttackState.Attack:
-                HandleAttackState();
-                break;
+            switch (currentState)
+            {
+                case AttackState.Cooldown:
+                    HandleCooldownState();
+                    break;
+                case AttackState.Attack:
+                    HandleAttackState();
+                    break;
+            }
         }
     }
 
     private void HandleCooldownState()
     {
-        // Decrease the timer
         timer -= Time.deltaTime;
 
-        // Transition to a new state if the timer expires
         if (timer <= 0)
         {
             SetAttackState(AttackState.Attack);
@@ -55,10 +58,8 @@ public class EnemyAttack : MonoBehaviour
 
     private void HandleAttackState()
     {
-        // Decrease the timer
         timer -= Time.deltaTime;
 
-        // Attack if the timer is active
         if (timer > 0)
         {
             // Only attack if time is greater than the next fire time
@@ -68,7 +69,6 @@ public class EnemyAttack : MonoBehaviour
             }
         }
 
-        // Transition to a new state if timer expires
         if (timer <= 0)
         {
             SetAttackState(AttackState.Cooldown);
@@ -86,8 +86,6 @@ public class EnemyAttack : MonoBehaviour
         // Get the EnemyBlaster script component from the instantiated projectile and set the direction
         EnemyProjectile script = projectile.GetComponent<EnemyProjectile>();
         script.SetDirection(direction);
-        
-        Debug.Log("Shoot");
 
         // Compute for the next fire time
         nextFireTime = Time.time + fireRate;
@@ -100,12 +98,18 @@ public class EnemyAttack : MonoBehaviour
         if (currentState == AttackState.Attack)
         {
             timer = Random.Range(minAtkInterval, maxAtkInterval);
-            Debug.Log("Switched to attack state");
         }
         else
         {
             timer = Random.Range(minCooldownInterval, maxCooldownInterval);
-            Debug.Log("Switched to cooldown state");
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy Boundary"))
+        {
+            inBoundary = true;
         }
     }
 }
