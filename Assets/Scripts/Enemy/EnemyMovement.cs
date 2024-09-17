@@ -4,37 +4,38 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    private Rigidbody2D rigidBody;
-
     [Header("Spacecraft")]
+    [SerializeField, Range(0.01f, 1.0f)] private float speedChangeRate;
     private Vector2 targetPosition;
-    private float currentSpeed, targetSpeed;
-    private bool destinationReached;
-    [Range(0.01f, 1.0f)]
-    public float speedChangeRate;
+    private float targetSpeed, currentSpeed;
+    private bool destinationReached = false;
 
-    [Header("Movement State")]
+    [Header("Movement State"), Range(0, 5f)]
+    public float minMoveTime;
+    public float maxMoveTime;
+    public float minIdleTime;
+    public float maxIdleTime;
     private float timer;
-    [Range(0.0f, 5.0f)]
-    public float minMoveTime, maxMoveTime, minIdleTime, maxIdleTime;
 
-    [Header("Boundary")]
-    public BoxCollider2D area;
+    [Header("Boundary")] 
     public float boundaryMargin;
     private Bounds boundary;
+    private BoxCollider2D area;
+
+    private Rigidbody2D rigidBody;
 
     private enum MovementState {Idle, Moving}
-    private MovementState currentState;
+    private MovementState currentState = MovementState.Idle;
     
     void Start()
     {
-        // Set the initial values
         rigidBody = GetComponent<Rigidbody2D>();
-        destinationReached = false;
+
+        area = GameObject.FindGameObjectWithTag("Enemy Boundary").GetComponent<BoxCollider2D>();
         boundary = area.bounds;
+
         targetSpeed = Random.Range(0.01f, 1f);
         currentSpeed = targetSpeed;
-        SetMovementState(MovementState.Idle);
     }
 
     void Update()

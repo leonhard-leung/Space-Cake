@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 2527695807433152914}
   - component: {fileID: 2752117761371932535}
   m_Layer: 0
-  m_Name: EnemyProjectile
+  m_Name: Enemy Projectile
   m_TagString: Enemy Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -197,7 +197,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.002, y: 0.448, z: 0}
-  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
+  m_LocalScale: {x: 0.110226, y: 0.110226, z: 0.110226}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4484078182306491807}
@@ -229,7 +229,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!58 &2527695807433152914
 CircleCollider2D:
@@ -265,7 +265,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.26
+  m_Radius: 0.32
 --- !u!114 &2752117761371932535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,3 +278,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65f12caa27987b847a7d20fa6a2ad190, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageValue: 40
