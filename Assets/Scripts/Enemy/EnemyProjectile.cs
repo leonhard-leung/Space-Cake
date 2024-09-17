@@ -9,6 +9,7 @@ public class EnemyProjectile : MonoBehaviour
     private Rigidbody2D rigidBody;
     private CircleCollider2D projectileCollider;
     private Vector2 direction;
+    public float acceleration;
 
     void Start()
     {
@@ -31,7 +32,7 @@ public class EnemyProjectile : MonoBehaviour
 
     public void SetDirection(Vector2 targetDirection)
     {
-        direction = targetDirection.normalized;
+        direction = targetDirection.normalized * acceleration;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -44,10 +45,10 @@ public class EnemyProjectile : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // Destroy the projectile if it comes contact with the player's projectile
-        if (other.CompareTag("Player Projectile"))
-        {
-            Destroy(gameObject);
-        }
+        // // Destroy the projectile if it comes contact with the player's projectile
+        // if (other.CompareTag("Player Projectile"))
+        // {
+        //     Destroy(gameObject);
+        // }
     }
 }

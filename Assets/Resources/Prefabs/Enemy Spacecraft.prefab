@@ -190,7 +190,6 @@ MonoBehaviour:
   maxMoveTime: 4.49
   minIdleTime: 1.84
   maxIdleTime: 3.94
-  area: {fileID: 0}
   boundaryMargin: 0.2
 --- !u!114 &5371227371049675760
 MonoBehaviour:
@@ -204,11 +203,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec53601c53a99e14f85507a68ae77a0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minCooldownInterval: 1.34
-  maxCooldownInterval: 2.95
+  minCooldownInterval: 3.21
+  maxCooldownInterval: 5
   minAtkInterval: 2.1
   maxAtkInterval: 4.19
-  fireRate: 1
+  fireRate: 1.65
 --- !u!114 &2148248390627918480
 MonoBehaviour:
   m_ObjectHideFlags: 0
