@@ -1467,8 +1467,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68aba8e973adeb64a8db2426e0ea43df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thrustSpeed: 1
-  lateralSpeed: 1.5
+  thrustSpeed: 0.8
+  lateralSpeed: 1
 --- !u!114 &1816030838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1544,7 +1544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 8070626217301717564, guid: 8bf1487281969e94cb0f3e16f536dceb, type: 3}
-  firerate: 0.1
+  firerate: 0.25
 --- !u!114 &1816030840
 MonoBehaviour:
   m_ObjectHideFlags: 0

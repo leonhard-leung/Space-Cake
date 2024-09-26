@@ -1,24 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
     [Header("Spacecraft")]
-    [SerializeField, Range(0.01f, 1.0f)] private float speedChangeRate;
+    [SerializeField, Range(0.01f, 1f)] private float speedChangeRate;
     private Vector2 targetPosition;
     private float targetSpeed, currentSpeed;
     private bool destinationReached = false;
 
-    [Header("Movement State"), Range(0, 5f)]
-    public float minMoveTime;
-    public float maxMoveTime;
-    public float minIdleTime;
-    public float maxIdleTime;
+    [Header("Movement State")]
+    [SerializeField, Range(0.01f, 5f)] private float minMoveTime;
+    [SerializeField, Range(0.01f, 5f)] private float maxMoveTime;
+    [SerializeField, Range(0.01f, 5f)] private float minIdleTime;
+    [SerializeField, Range(0.01f, 5f)] private float maxIdleTime;
     private float timer;
 
     [Header("Boundary")] 
-    public float boundaryMargin;
+    [SerializeField] private float boundaryMargin;
     private Bounds boundary;
     private BoxCollider2D area;
 
