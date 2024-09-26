@@ -1,15 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Rigidbody2D playerRigidbody;
-
     [Header("Spaceship")]
-    [Range(0,5)] public float thrustSpeed, lateralSpeed;
+    [SerializeField, Range(0,5)] private float thrustSpeed, lateralSpeed;
+
+    private Rigidbody2D playerRigidbody;
 
     private BoxCollider2D area;
     private Bounds boundary;
@@ -18,11 +15,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        // Playable Boundary
         area = GameObject.Find("Player Boundary").GetComponent<BoxCollider2D>();
         boundary = area.bounds;
 
-        // Rigidbody
         playerRigidbody = GetComponent<Rigidbody2D>();
     }
 
@@ -51,11 +46,11 @@ public class PlayerMovement : MonoBehaviour
         // Obtain the next possible position
         Vector2 nextPosition = (Vector2)transform.position + direction * Time.deltaTime;
 
-        // check if the player is near the boundary
+        // Check if the player is near the boundary
         bool isNearXBoundary = nextPosition.x <= boundary.min.x || nextPosition.x >= boundary.max.x;
         bool isNearYBoundary = nextPosition.y <= boundary.min.y || nextPosition.y >= boundary.max.y;
 
-        // adjust movement based on boundary proximity
+        // Adjust movement based on boundary proximity
         if (isNearXBoundary)
         {
             if ((nextPosition.x <= boundary.min.x && xAxis < 0) || (nextPosition.x >= boundary.max.x && xAxis > 0))
@@ -74,15 +69,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        // update the position of the spaceship
+        // Update the position of the spaceship
         playerRigidbody.MovePosition(playerRigidbody.position + direction * Time.deltaTime);
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            Debug.Log("PLAYER JUST BUMBED INTO THE ENEMY!!!");
-        }
     }
 }

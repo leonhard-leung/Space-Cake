@@ -9,8 +9,6 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField, Range(0, 5f)] private float maxAtkInterval;
     private float timer;
 
-    [Space]
-
     [Header("Attack Behavior")]
     [SerializeField, Range(0, 2f)] private float fireRate;
     private float nextFireTime;
@@ -50,6 +48,7 @@ public class EnemyAttack : MonoBehaviour
     {
         timer -= Time.deltaTime;
 
+        // Change cooldown state to attack state
         if (timer <= 0)
         {
             SetAttackState(AttackState.Attack);
@@ -69,6 +68,7 @@ public class EnemyAttack : MonoBehaviour
             }
         }
 
+        // Change attack state to cooldown state
         if (timer <= 0)
         {
             SetAttackState(AttackState.Cooldown);
@@ -95,6 +95,7 @@ public class EnemyAttack : MonoBehaviour
     {
         currentState = newState;
 
+        // Reset the timer with a random value depending on the current state
         if (currentState == AttackState.Attack)
         {
             timer = Random.Range(minAtkInterval, maxAtkInterval);
@@ -107,6 +108,7 @@ public class EnemyAttack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // Declare that the enemy is inside the boundary
         if (other.CompareTag("Enemy Boundary"))
         {
             inBoundary = true;

@@ -1,24 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEditor.iOS;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public GameObject projectilePrefab;
-
     [Header("Attack Behavior")]
-    [Range(0, 2)] public float firerate;
+    [SerializeField, Range(0, 2f)] private float firerate;
     private float nextFireTime;
+
+    private GameObject projectilePrefab;
 
     private bool isAttacking;
 
     void Start()
     {
-
+        projectilePrefab = Resources.Load<GameObject>("Prefabs/Player Projectile");
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (isAttacking && Time.time >= nextFireTime)
@@ -29,10 +27,10 @@ public class PlayerAttack : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext value)
     {
+        // Set isAttacking to true if the key is pressed else, set it to false
         if (value.started)
         {
             isAttacking = true;
-            Debug.Log("ATTACKING");
         }
         else if (value.canceled)
         {
@@ -42,10 +40,10 @@ public class PlayerAttack : MonoBehaviour
 
     private void Attack()
     {
-        // create the blaster
+        // Create the prefab
         Instantiate(projectilePrefab, new Vector3(transform.position.x, transform.position.y + 0.0105f, transform.position.z), Quaternion.identity);
 
-        // compute for the next fire time
+        // Compute for the next fire time
         nextFireTime = Time.time + firerate;
     }
 }

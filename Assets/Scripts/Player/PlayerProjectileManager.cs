@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerProjectileManager : MonoBehaviour
@@ -20,7 +18,7 @@ public class PlayerProjectileManager : MonoBehaviour
         bool leftProjectileDestroyed = leftProjectile == null || !leftProjectile.activeInHierarchy;
         bool rightProjectileDestroyed = rightProjectile == null || !rightProjectile.activeInHierarchy;
 
-
+        // Remove the main prefab completely if the left and right projectile is destroyed
         if (leftProjectileDestroyed && rightProjectileDestroyed)
         {
             Destroy(gameObject);
